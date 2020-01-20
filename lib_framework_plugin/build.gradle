@@ -94,8 +94,7 @@ task deleteSdk(type: Delete){
 //push到本地 目录是C:\Users\MDL\.m2\repository\com\insworks\plugin\framework-plugin\1.0.3
 publish {
     //https://api.bintray.com/content/songjianzaina/insoan/framework-plugin/1.0.0/property
-    bintrayUser = "songjianzaina"
-    bintrayKey = "5e7f0ea95e85af4cceca20cb109fb59ad7cba6bc"
+
     userOrg = 'songjianzaina' //bintray账户下某个组织id 没有组织填写账户名
     groupId = 'com.insworks.plugin' //maven仓库下库的包名，一般为模块包名
     repoName = "insoan"//远程仓库名 默认为maven
