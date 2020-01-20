@@ -1,9 +1,4 @@
-package com.insworks.plugin
-
-
-import groovy.json.JsonSlurper
-import org.gradle.api.Project
-
+package com.insworks.plugin.model
 /**
  * 预装数据
  */

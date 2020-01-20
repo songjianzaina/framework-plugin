@@ -1,4 +1,4 @@
-package com.insworks.plugin
+package com.insworks.plugin.bean
 
 public class FrameExtension {
     /**

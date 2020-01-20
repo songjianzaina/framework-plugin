@@ -1,12 +1,10 @@
-package com.insworks.plugin
+package com.insworks.plugin.utils
 
 
 import groovy.json.JsonSlurper
 import org.gradle.api.Project
 
-/**
- * 该版本在java中有效 在kotlin中无效
- */
+
 class DirOption {
 
     /**
