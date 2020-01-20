@@ -1,0 +1,29 @@
+apply plugin: 'groovy'
+apply plugin: 'maven'
+
+dependencies {
+    implementation gradleApi()
+    implementation localGroovy()
+    implementation 'com.android.tools.build:gradle:3.5.3'
+}
+
+repositories {
+    mavenCentral()
+    jcenter()
+}
+
+
+uploadArchives { // 这里只是更新到本地，可以上传到自定义的maven仓库
+    repositories {
+        mavenDeployer {
+            //提交到远程服务器：
+            // repository(url: "http://www.xxx.com/repos") {
+            //    authentication(userName: "admin", password: "admin")
+            // }
+            pom.groupId = 'com.insworks.plugin'
+            pom.artifactId = 'framework-plugin'
+            pom.version = "1.0.1"
+            repository(url: uri("$rootDir/global/repo"))
+        }
+    }
+}
