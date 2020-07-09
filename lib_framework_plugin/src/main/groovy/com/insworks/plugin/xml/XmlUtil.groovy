@@ -21,10 +21,9 @@ public class XmlUtil {
      * @return
      */
     static def mergeManifest(Project project, String cacheManifestFile, String jsonName, String dirName) {
-        println("=============开始合并AndroidManifest.xml=================")
         def baseManifile = "$project.rootDir/${project.getName()}/src/main/AndroidManifest.xml"
         writeFile(project, cacheManifestFile, mergeManifest(baseManifile, getAllManifestXml(project, jsonName, dirName)), false, false)
-        println("==============结束合并AndroidManifest.xml================")
+        println("清单文件合并完毕")
     }
 
 

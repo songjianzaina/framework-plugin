@@ -1,2 +1,3 @@
-include ':app', ':mylibrary'
-rootProject.name='My Application'
+include ':app', ':library'
+include ':lib_framework_plugin'
+rootProject.name='framework-plugin'

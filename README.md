@@ -17,7 +17,7 @@ buildscript {
 	maven { url 'https://dl.bintray.com/songjianzaina/insoan' }
    }
   dependencies {
-     classpath 'com.insworks.plugin:framework-plugin:1.0.3'
+     classpath 'com.insworks.plugin:framework-plugin:1.0.5'
   }
 }
 ```
@@ -49,3 +49,5 @@ frame{
 | 1.0.2|  增加子模块目录名和配置文件名自定义配置      | [ ![Download](https://api.bintray.com/packages/songjianzaina/insoan/framework-plugin/images/download.svg?version=1.0.2) ](https://bintray.com/songjianzaina/insoan/framework-plugin/1.0.2/link) |
 |  1.0.3    |  优化清单文件合并     |  [ ![Download](https://api.bintray.com/packages/songjianzaina/insoan/framework-plugin/images/download.svg?version=1.0.3) ](https://bintray.com/songjianzaina/insoan/framework-plugin/1.0.3/link)|
 |  1.0.4    |  增加Activity自动注册清单文件 (还未完善)    |  [ ![Download](https://api.bintray.com/packages/songjianzaina/insoan/framework-plugin/images/download.svg?version=1.0.4) ](https://bintray.com/songjianzaina/insoan/framework-plugin/1.0.4/link)|
+|  1.0.5    |  1.升级gradle依赖至4.0.0  <br> 2.新增values目录下attr和styles文件的自动生成 <br> 3.解决子模块libs目录so库无法引用的问题 <br> 4.优化插件加载方式 提升构建速度 <br> 5.移除多余log    |  [ ![Download](https://api.bintray.com/packages/songjianzaina/insoan/framework-plugin/images/download.svg?version=1.0.5) ](https://bintray.com/songjianzaina/insoan/framework-plugin/1.0.5/link)|
+

@@ -38,6 +38,9 @@ public class AutoCreateUtil {
                         hasDir = true
                         assets.srcDirs += f.absolutePath
                         res.srcDirs += f.absolutePath
+                    } else if (f.name.startsWith("libs")) {
+                        hasDir = true
+                        jniLibs.srcDirs += f.absolutePath
                     }
                 }
                 if (!hasDir) {
@@ -45,8 +48,8 @@ public class AutoCreateUtil {
                     java.srcDirs += "$project.rootDir/$dirName/$k/code"
                     res.srcDirs += "$project.rootDir/$dirName/$k/res"
                     assets.srcDirs += "$project.rootDir/$dirName/$k/assets"
+                    jniLibs.srcDirs += "$project.rootDir/$dirName/$k/libs"
                 }
-
             }
             //合并清单文件
             String libManifestCacheFile = "$project.rootDir/cache/manifest/$dirName/AndroidManifest.xml"
@@ -65,7 +68,7 @@ public class AutoCreateUtil {
                 api project.fileTree(dir: f.absoluteFile, include: ['*.jar'], exclude: [])
             }
         }
-        autoRegisterActivityInMani(project, jsonName, dirName, variants)
+//        autoRegisterActivityInMani(project, jsonName, dirName, variants)
     }
     /**
      * 自动给Activity注册清单文件
@@ -174,6 +177,14 @@ public class AutoCreateUtil {
         def stringfile = "$resRootDir/values/string.xml"
         writeFile(project, stringfile, Locl.preStringsContent, false, false)
 
+        //创建styles
+        def stylesfile = "$resRootDir/values/styles.xml"
+        writeFile(project, stylesfile, Locl.preStringsContent, false, false)
+
+        //创建attrs
+        def attrsfile = "$resRootDir/values/attrs.xml"
+        writeFile(project, attrsfile, Locl.preStringsContent, false, false)
+
         //创建AndroidManifest.xml
         def manifest = "$resRootDir/AndroidManifest.xml"
         writeFile(project, manifest, Locl.preManifestsContent, false, false)
@@ -194,7 +205,6 @@ public class AutoCreateUtil {
      * @param isApp
      */
     static def autoCreateGlobalDir(Project project, boolean isApp) {
-        println("===开启全局global====")
         //引用全局libs
         project.getRootProject().allprojects {
             repositories {

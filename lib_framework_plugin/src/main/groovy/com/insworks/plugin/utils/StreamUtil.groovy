@@ -19,7 +19,6 @@ public class StreamUtil {
                 //文件存在
                 if (new FileReader(project.file(path)).readLines().size() > 0) {
                     //并且已经存在内容
-                    println("============${path}已经存在内容==========")
                     if (isHoldContent) {
                         //保持原来内容不变
                     } else {

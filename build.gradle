@@ -1,19 +1,20 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 
 buildscript {
-    ext.kotlin_version = '1.3.50'
+    ext.kotlin_version = '1.3.72'
     repositories {
         google()
         jcenter()
         maven { url "https://dl.bintray.com/songjianzaina/insoan" }
-        maven { url uri("repo") }
+        maven { url uri("global/repo") }
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.5.3'
+        classpath 'com.android.tools.build:gradle:4.0.0'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
-        classpath 'com.insworks.plugin:framework-plugin:1.0.3'
+        classpath 'com.insworks.plugin:framework-plugin:1.0.5'
+        classpath 'com.novoda:bintray-release:0.9.2'
     }
 }
 

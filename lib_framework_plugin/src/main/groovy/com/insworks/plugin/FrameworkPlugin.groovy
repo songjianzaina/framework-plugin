@@ -17,8 +17,8 @@ import org.gradle.api.Project
  * gradle.projectsLoaded->
  * gradle.beforeProject->
  * project.beforeEvaluate->
- * gradle.afterProject->
- * project.afterEvaluate->
+ * gradle.afterProject-> //项目如果包含多个模块 那么该方法就会执行多次 监听所有项目
+ * project.afterEvaluate->  //只监听当前项目
  * gradle.projectsEvaluated->
  * gradle.taskGraph.graphPopulated->
  * gradle.taskGraph.whenReady->
@@ -41,8 +41,8 @@ class FrameworkPlugin implements Plugin<Project> {
         println("=================================")
         //向project中添加frame节点
         project.extensions.add("frame", FrameExtension)
-        //节点加载完毕后 不能使用 project.afterEvaluate 否则打包时提示找不到资源
-        project.gradle.afterProject {
+
+            //监听当前项目
             if (!project.android) {
                 //未找到 android节点
                 throw new IllegalStateException('Must apply \'com.android.application\' or \'com.android.library\' first!')
@@ -56,7 +56,8 @@ class FrameworkPlugin implements Plugin<Project> {
                 //计算该 task 的执行时长
                 println("组件架构插件总共花费时长${timeInfo.end -timeInfo.start}ms")
             }
-        }
+
+
     }
     /**
      * 获取frame节点下的配置信息
@@ -65,13 +66,13 @@ class FrameworkPlugin implements Plugin<Project> {
     private boolean initFrameConfig(Project project) {
         FrameExtension ext = mProject.frame
         if (isApp(project)) {
-            println("检测到application")
+            println("application开始配置")
             subModuleName = TextUtils.isEmpty(ext.subDirName) ? "androidModule" : ext.subDirName
             moduleJsonName = TextUtils.isEmpty(ext.jsonName) ? "androidModule" : ext.jsonName
             variants = (project.property("android") as AppExtension).applicationVariants
             return true
         } else {
-            println("检测到library")
+            println("library开始配置")
             subModuleName = TextUtils.isEmpty(ext.subDirName) ? "androidLib" : ext.subDirName
             moduleJsonName = TextUtils.isEmpty(ext.jsonName) ? "androidLib" : ext.jsonName
             variants = (project.property("android") as LibraryExtension).libraryVariants

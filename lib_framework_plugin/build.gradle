@@ -7,7 +7,7 @@ dependencies {
     implementation files('libs/dom4j-2.1.1.jar')
     implementation gradleApi()
     implementation localGroovy()
-    implementation 'com.android.tools.build:gradle:3.5.3'
+    implementation 'com.android.tools.build:gradle:4.0.0'
     implementation 'com.novoda:bintray-release:0.9.2'
 }
 
@@ -71,7 +71,7 @@ uploadArchives { // 这里只是更新到本地，可以上传到自定义的mav
             // }
             pom.groupId = 'com.insworks.plugin'
             pom.artifactId = 'framework-plugin'
-            pom.version = '1.0.4'
+            pom.version = '1.0.5'
             repository(url: uri("$rootDir/global/repo"))
         }
     }
@@ -94,12 +94,13 @@ task deleteSdk(type: Delete){
 //push到本地 目录是C:\Users\MDL\.m2\repository\com\insworks\plugin\framework-plugin\1.0.3
 publish {
     //https://api.bintray.com/content/songjianzaina/insoan/framework-plugin/1.0.0/property
-
+    bintrayUser = "songjianzaina"
+    bintrayKey = "5e7f0ea95e85af4cceca20cb109fb59ad7cba6bc"
     userOrg = 'songjianzaina' //bintray账户下某个组织id 没有组织填写账户名
     groupId = 'com.insworks.plugin' //maven仓库下库的包名，一般为模块包名
     repoName = "insoan"//远程仓库名 默认为maven
     artifactId = 'framework-plugin' //项目名称 在远程仓库下面创建一个包 然后name填这个
-    publishVersion = '1.0.4' //版本号
+    publishVersion = '1.0.5' //版本号
     desc = '组件化架构插件' //项目介绍，可以不写
     website = '' //项目主页，可以不写
     dryRun = false //如果设置为“true”，则将运行所有内容，但不会将包上传到bintray。 如果“false”，那么它将正常上传
