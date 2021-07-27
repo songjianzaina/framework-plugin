@@ -41,7 +41,14 @@ frame{
 }
 ```
 
+工程效果图:
+
+![](https://cdn.jsdelivr.net/gh/lunanzb/luhui/img/20210727143356.png)
+
+以上标红目录在应用插件后皆自动生成 无需手动创建
+
 ## 更新历史
+
 |   版本号       |    功能点   |链接 |
 |----------|-------|-------|
 | 1.0.0| 初步实现架构文件自动生成 |[ ![Download](https://api.bintray.com/packages/songjianzaina/insoan/framework-plugin/images/download.svg?version=1.0.0) ](https://bintray.com/songjianzaina/insoan/framework-plugin/1.0.0/link)|
