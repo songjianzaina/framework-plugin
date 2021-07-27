@@ -55,7 +55,7 @@ task androidSourcesJar(type: Jar) {
 //dependsOn表示在自己之前先执行这个方法 makeJar触发build 先执行
 makeJar.dependsOn(jar)
 publishToMavenLocal.dependsOn(makeJar)
-//uploadArchives.dependsOn(makeJar)
+uploadArchives.dependsOn(makeJar)
 //包含源码
 artifacts {
     archives makeJar
@@ -112,32 +112,48 @@ tasks.withType(Javadoc) {//防止编码问题
     options.addStringOption('charSet', 'UTF-8')
 }
 
+
 //上传至 plugins.gradle.org插件网
-//buildscript {
-//    repositories {
-//        maven {
-//            url "https://plugins.gradle.org/m2/"
-//        }
-//    }
-//    dependencies {
-//        classpath "com.gradle.publish:plugin-publish-plugin:0.9.7"
-//    }
-//}
-//apply plugin: "com.gradle.plugin-publish"   //这个是发布到插件门户网站的插件
+buildscript {
+    repositories {
+        maven {
+            url "https://plugins.gradle.org/m2/"
+        }
+    }
+    dependencies {
+        classpath "com.gradle.publish:plugin-publish-plugin:0.15.0"
+    }
+}
+apply plugin: "com.gradle.plugin-publish"   //这个是发布到插件门户网站的插件
 
 
-//pluginBundle {
-//
-//    website = 'https://github.com/songjianzaina/framework-plugin'
-//    vcsUrl = 'https://github.com/songjianzaina/framework-plugin'
-//    description = '组件化架构插件!'  //插件描述
-//    tags = ['framework', 'project']  //插件的tag。可以通过这个在插件门户上搜索
-//    version = "1.0.1"    //配置插件的版本号
-//    group = "com.insworks.plugin"   //插件的群组，插件的classpath会用到
-//    plugins {
-//        greetingsPlugin {
-//            id = 'framework.plugin'   //插件的id，到时候apply的插件id
-//            displayName = 'framework-plugin'
-//        }
-//    }
-//}
+pluginBundle {
+
+    website = 'https://github.com/songjianzaina/framework-plugin'
+    vcsUrl = 'https://github.com/songjianzaina/framework-plugin'
+    description = '组件化架构插件!'  //插件描述
+    tags = ['framework', 'project']  //插件的tag。可以通过这个在插件门户上搜索
+    version = "1.0.4"    //配置插件的版本号
+    group = "com.insworks.plugin"   //插件的群组，插件的classpath会用到
+    plugins {
+        greetingsPlugin {
+            id = 'framework.plugin'   //插件的id，到时候apply的插件id
+            displayName = 'framework.plugin'
+        }
+    }
+}
+
+
+//jitpack.io
+/*buildscript {
+        repositories {
+            maven { url 'https://jitpack.io' }
+    }
+    dependencies {
+        classpath 'com.github.dcendents:android-maven-gradle-plugin:2.1'//this
+    }
+
+}
+
+apply plugin: 'com.github.dcendents.android-maven'//this
+group='com.github.songjianzaina'*/
