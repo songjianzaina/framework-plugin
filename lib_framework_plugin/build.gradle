@@ -1,6 +1,5 @@
 apply plugin: 'groovy'
 apply plugin: 'maven'
-apply plugin: 'com.novoda.bintray-release'
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
@@ -8,7 +7,6 @@ dependencies {
     implementation gradleApi()
     implementation localGroovy()
     implementation 'com.android.tools.build:gradle:4.0.0'
-    implementation 'com.novoda:bintray-release:0.9.2'
 }
 
 repositories {
@@ -18,126 +16,3 @@ repositories {
 
 
 
-
-task makeJar(type: Jar) {
-    //以下是需要打包进jar包中的内容
-    from(project.zipTree("build/libs/lib_framework_plugin.jar"))
-    from(project.zipTree("libs/dom4j-2.1.1.jar"))
-    from 'build/classes/groovy/main'
-    //指定打包的class
-//    include "com/insworks/plugin/*.class"
-    //过滤不需要打入jar包的文件（以ui，uuid，M开头的目录和文件）
-//    exclude('ui', 'uuid', 'M')
-    //打包到jar后的目录结构
-//    into('com/insworks/plugin')
-//    //合体后的jar包名称
-    archiveName = "framework_plugin.jar"
-//    //输出目录
-//    destinationDir = file('build/libs')
-
-//    String someString = ''
-//    //遍历项目的所有依赖的jar包赋值给变量someString
-//    configurations.runtime.each {someString = someString + " libs\\"+it.name}
-//    manifest {
-//        attributes 'Main-Class': 'com.insworks.plugin.FrameworkPlugin'
-//        attributes 'Class-Path': someString
-//    }
-
-}
-
-// 源代码一起打包(不需要打包源代码的不要添加这几行)
-task androidSourcesJar(type: Jar) {
-    //添加jar包名后缀
-    classifier = 'sources'
-    from 'src'
-    from(project.zipTree("libs/dom4j-2.1.1.jar"))
-}
-//dependsOn表示在自己之前先执行这个方法 makeJar触发build 先执行
-makeJar.dependsOn(jar)
-publishToMavenLocal.dependsOn(makeJar)
-//uploadArchives.dependsOn(makeJar)
-//包含源码
-artifacts {
-    archives makeJar
-    archives androidSourcesJar
-}
-
-uploadArchives { // 这里只是更新到本地，可以上传到自定义的maven仓库
-    repositories {
-        mavenDeployer {
-            //提交到远程服务器：
-            // repository(url: "http://www.xxx.com/repos") {
-            //    authentication(userName: "admin", password: "admin")
-            // }
-            pom.groupId = 'com.insworks.plugin'
-            pom.artifactId = 'framework-plugin'
-            pom.version = '1.0.5'
-            repository(url: uri("$rootDir/global/repo"))
-        }
-    }
-}
-
-
-
-task copyFile(type: Copy){
-    from('build/libs/drisk.jar', 'libs/xxx.jar', 'src/main/libs')
-    into('build/sdk')
-}
-
-task deleteSdk(type: Delete){
-    delete('build/sdk')
-}
-
-
-
-//upload前需要先build
-//push到本地 目录是C:\Users\MDL\.m2\repository\com\insworks\plugin\framework-plugin\1.0.3
-publish {
-    //https://api.bintray.com/content/songjianzaina/insoan/framework-plugin/1.0.0/property
-    bintrayUser = "songjianzaina"
-    bintrayKey = "5e7f0ea95e85af4cceca20cb109fb59ad7cba6bc"
-    userOrg = 'songjianzaina' //bintray账户下某个组织id 没有组织填写账户名
-    groupId = 'com.insworks.plugin' //maven仓库下库的包名，一般为模块包名
-    repoName = "insoan"//远程仓库名 默认为maven
-    artifactId = 'framework-plugin' //项目名称 在远程仓库下面创建一个包 然后name填这个
-    publishVersion = '1.0.5' //版本号
-    desc = '组件化架构插件' //项目介绍，可以不写
-    website = '' //项目主页，可以不写
-    dryRun = false //如果设置为“true”，则将运行所有内容，但不会将包上传到bintray。 如果“false”，那么它将正常上传
-    autoPublish = true
-}
-tasks.withType(Javadoc) {//防止编码问题
-    options.addStringOption('Xdoclint:none', '-quiet')
-    options.addStringOption('encoding', 'UTF-8')
-    options.addStringOption('charSet', 'UTF-8')
-}
-
-//上传至 plugins.gradle.org插件网
-//buildscript {
-//    repositories {
-//        maven {
-//            url "https://plugins.gradle.org/m2/"
-//        }
-//    }
-//    dependencies {
-//        classpath "com.gradle.publish:plugin-publish-plugin:0.9.7"
-//    }
-//}
-//apply plugin: "com.gradle.plugin-publish"   //这个是发布到插件门户网站的插件
-
-
-//pluginBundle {
-//
-//    website = 'https://github.com/songjianzaina/framework-plugin'
-//    vcsUrl = 'https://github.com/songjianzaina/framework-plugin'
-//    description = '组件化架构插件!'  //插件描述
-//    tags = ['framework', 'project']  //插件的tag。可以通过这个在插件门户上搜索
-//    version = "1.0.1"    //配置插件的版本号
-//    group = "com.insworks.plugin"   //插件的群组，插件的classpath会用到
-//    plugins {
-//        greetingsPlugin {
-//            id = 'framework.plugin'   //插件的id，到时候apply的插件id
-//            displayName = 'framework-plugin'
-//        }
-//    }
-//}
