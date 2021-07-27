@@ -14,14 +14,12 @@ repositories {
     jcenter()
 }
 
-
-
-
 task makeJar(type: Jar) {
     //以下是需要打包进jar包中的内容
-    from(project.zipTree("libs/dom4j-2.1.1.jar"))
+    from (project.zipTree("libs/dom4j-2.1.1.jar"))
     from 'build/classes/groovy/main'
-
+    from 'src/main/resources'
+    into '' //将以上三个加入 到根目录下
 }
 
 // 源代码一起打包(不需要打包源代码的不要添加这几行)
@@ -36,5 +34,15 @@ makeJar.dependsOn(jar)
 //包含源码
 artifacts {
     archives makeJar
-    archives androidSourcesJar
+//    archives androidSourcesJar
+}
+
+jar {
+    String someString = ''
+    configurations.runtime. each {someString = someString + " libs//" +it.name}
+    manifest {
+        attributes 'Main-Class' : 'com.insworks.plugin.FrameworkPlugins'
+        attributes 'Class-Path' : someString
+    }
+
 }

@@ -14,10 +14,10 @@
 buildscript {
   repositories {
    ...
-	maven { url 'https://dl.bintray.com/songjianzaina/insoan' }
+	maven { url 'https://jitpack.io' }
    }
   dependencies {
-     classpath 'com.insworks.plugin:framework-plugin:1.0.5'
+     classpath 'com.insworks.plugin:framework-plugin:1.0.6-alpha'
   }
 }
 ```
