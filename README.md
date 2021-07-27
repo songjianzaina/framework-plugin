@@ -17,7 +17,7 @@ buildscript {
 	maven { url 'https://jitpack.io' }
    }
   dependencies {
-     classpath 'com.insworks.plugin:framework-plugin:1.0.6-alpha'
+     classpath 'com.github.songjianzaina:framework-plugin:1.0.6-alpha'
   }
 }
 ```
